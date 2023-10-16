@@ -1,0 +1,463 @@
+﻿<fuic:Page x:Class="AlgLabs.Pages.Lab03" x:Name="page"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:AlgLabs.MVVM" xmlns:oxy="http://oxyplot.org/wpf"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="3 • Швидке сортування">
+    <Page.DataContext>
+        <mvvm:Lab03ViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <Style TargetType="Border" x:Key="TableCell">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Outline}" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="{DynamicResource Outline}" BorderThickness="0.5" MaxHeight="{Binding ElementName=page, Path=ActualHeight}">
+            <TabControl ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Style="{DynamicResource TableCell}">
+                                    <TextBlock Text="Кількість елементів" FontWeight="Bold" VerticalAlignment="Center" />
+                                </Border>
+                                <Border Grid.Column="1" Style="{DynamicResource TableCell}">
+                                    <TextBlock Text="Час Quicksort, мс" FontWeight="Bold" VerticalAlignment="Center" />
+                                </Border>
+                                <Border Grid.Column="2" Style="{DynamicResource TableCell}">
+                                    <TextBlock Text="Час злиття, мс" FontWeight="Bold" VerticalAlignment="Center" />
+                                </Border>
+                                <Border Grid.Column="3" Style="{DynamicResource TableCell}">
+                                    <TextBlock Text="Час вставки, мс" FontWeight="Bold" VerticalAlignment="Center" />
+                                </Border>
+
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="1">
+                                    <TextBlock Text="50,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="2">
+                                    <TextBlock Text="100,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="3">
+                                    <TextBlock Text="150,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="4">
+                                    <TextBlock Text="200,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="5">
+                                    <TextBlock Text="250,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="6">
+                                    <TextBlock Text="300,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="7">
+                                    <TextBlock Text="350,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="8">
+                                    <TextBlock Text="400,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="9">
+                                    <TextBlock Text="450,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="10">
+                                    <TextBlock Text="500,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="11">
+                                    <TextBlock Text="550,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="12">
+                                    <TextBlock Text="600,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="13">
+                                    <TextBlock Text="650,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="14">
+                                    <TextBlock Text="700,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="15">
+                                    <TextBlock Text="750,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="16">
+                                    <TextBlock Text="800,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="17">
+                                    <TextBlock Text="850,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="18">
+                                    <TextBlock Text="900,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="19">
+                                    <TextBlock Text="950,000" TextAlignment="Left" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}" Grid.Row="20">
+                                    <TextBlock Text="1,000,000" TextAlignment="Left" />
+                                </Border>
+
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="1" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[0].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="1" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[0].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="1" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[0].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="2" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[1].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="2" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[1].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="2" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[1].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="3" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[2].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="3" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[2].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="3" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[2].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="4" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[3].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="4" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[3].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="4" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[3].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="5" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[4].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="5" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[4].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="5" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[4].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="6" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[5].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="6" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[5].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="6" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[5].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="7" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[6].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="7" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[6].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="7" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[6].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="8" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[7].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="8" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[7].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="8" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[7].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="9" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[8].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="9" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[8].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="9" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[8].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="10" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[9].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="10" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[9].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="10" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[9].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="11" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[10].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="11" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[10].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="11" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[10].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="12" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[11].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="12" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[11].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="12" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[11].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="13" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[12].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="13" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[12].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="13" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[12].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="14" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[13].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="14" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[13].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="14" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[13].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="15" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[14].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="15" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[14].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="15" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[14].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="16" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[15].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="16" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[15].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="16" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[15].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="17" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[16].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="17" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[16].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="17" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[16].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="18" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[17].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="18" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[17].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="18" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[17].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="19" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[18].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="19" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[18].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="19" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[18].Insert}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="20" Grid.Column="1">
+                                    <TextBlock Text="{Binding Results[19].Quick}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="20" Grid.Column="2">
+                                    <TextBlock Text="{Binding Results[19].Merge}" />
+                                </Border>
+                                <Border Style="{DynamicResource TableCell}"
+                                        Grid.Row="20" Grid.Column="3">
+                                    <TextBlock Text="{Binding Results[19].Insert}" />
+                                </Border>
+                            </Grid>
+                        </ScrollViewer>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="8,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Кількість потоків:" VerticalAlignment="Center"/>
+                <fuic:NumericTextBox Text="{Binding ThreadCount, UpdateSourceTrigger=PropertyChanged}" Margin="4,0,0,0" Grid.Column="1"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Command="{Binding RunCommand}"
+                        IsEnabled="{Binding RunningTests, Converter={StaticResource InverseBooleanConverter}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <fuic:Icon Kind="Play" Width="20" />
+                            <TextBlock Text="ЗАПУСТИТИ" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Button Command="{Binding ExportCommand}" Grid.Column="1"
+                        IsEnabled="{Binding RunningTests, Converter={StaticResource InverseBooleanConverter}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <fuic:Icon Kind="Export" Width="20" />
+                            <TextBlock Text="ЕКСПОРТ" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+                <Button Command="{Binding ImportCommand}" Grid.Column="2"
+                        IsEnabled="{Binding RunningTests, Converter={StaticResource InverseBooleanConverter}}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <fuic:Icon Kind="Import" Width="20" />
+                            <TextBlock Text="ІМПОРТ" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+            
+
+            <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,12"
+                        Visibility="{Binding RunningTests, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <fuic:CircularProgress />
+                <TextBlock Text="Тестування..." Margin="0,4,0,0" />
+            </StackPanel>
+
+            <oxy:PlotView Grid.Row="3" Model="{Binding PlotModel}" Background="Transparent"/>
+
+        </Grid>
+
+
+    </Grid>
+
+</fuic:Page>

@@ -1,0 +1,165 @@
+﻿<fuic:Page x:Class="AlgLabs.Pages.Lab02"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+           xmlns:mvvm="clr-namespace:AlgLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="2 • Аналіз сортування"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab02ViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <Style TargetType="Border" x:Key="TableCell">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Outline}"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="{DynamicResource Outline}" BorderThickness="0.5">
+            <Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.RowSpan="2">
+                        <TextBlock Text="Кількість" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2">
+                        <TextBlock Text="Пам'яті" TextAlignment="Left"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3">
+                        <TextBlock Text="Порівнянь" TextAlignment="Left"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4">
+                        <TextBlock Text="Перестановок" TextAlignment="Left"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Column="1" Grid.ColumnSpan="3">
+                        <TextBlock Text="Метод вставки" FontWeight="Bold" />
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Column="4" Grid.ColumnSpan="3">
+                        <TextBlock Text="Метод злиття" FontWeight="Bold" />
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="1">
+                        <TextBlock Text="Найкращий"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="2">
+                        <TextBlock Text="Експеримент"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="3">
+                        <TextBlock Text="Найгірший"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="4">
+                        <TextBlock Text="Найкращий"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="5">
+                        <TextBlock Text="Експеримент"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="6">
+                        <TextBlock Text="Найгірший"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="6">
+                        <TextBlock Text="Найгірший"/>
+                    </Border>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="1">
+                        <TextBlock Text="{Binding InsertionResult.Best.Memory}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="1">
+                        <TextBlock Text="{Binding InsertionResult.Best.Comparisons}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4" Grid.Column="1">
+                        <TextBlock Text="{Binding InsertionResult.Best.Swaps}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="2">
+                        <TextBlock Text="{Binding InsertionResult.Experiment.Memory}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="2">
+                        <TextBlock Text="{Binding InsertionResult.Experiment.Comparisons}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4" Grid.Column="2">
+                        <TextBlock Text="{Binding InsertionResult.Experiment.Swaps}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="3">
+                        <TextBlock Text="{Binding InsertionResult.Worst.Memory}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="3">
+                        <TextBlock Text="{Binding InsertionResult.Worst.Comparisons}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4" Grid.Column="3">
+                        <TextBlock Text="{Binding InsertionResult.Worst.Swaps}" VerticalAlignment="Center"/>
+                    </Border>
+
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="4">
+                        <TextBlock Text="{Binding MergeResult.Best.Memory}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="4">
+                        <TextBlock Text="{Binding MergeResult.Best.Comparisons}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4" Grid.Column="4">
+                        <TextBlock Text="{Binding MergeResult.Best.Swaps}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="5">
+                        <TextBlock Text="{Binding MergeResult.Experiment.Memory}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="5">
+                        <TextBlock Text="{Binding MergeResult.Experiment.Comparisons}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4" Grid.Column="5">
+                        <TextBlock Text="{Binding MergeResult.Experiment.Swaps}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="6">
+                        <TextBlock Text="{Binding MergeResult.Worst.Memory}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="6">
+                        <TextBlock Text="{Binding MergeResult.Worst.Comparisons}" VerticalAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="4" Grid.Column="6">
+                        <TextBlock Text="{Binding MergeResult.Worst.Swaps}" VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Visibility="{Binding RunningTests, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <fuic:CircularProgress/>
+            <TextBlock Text="Тестування..." Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <Button Grid.Row="2" Command="{Binding RunCommand}"
+                IsEnabled="{Binding RunningTests, Converter={StaticResource InverseBooleanConverter}}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="Play" Width="20"/>
+                    <TextBlock Text="ЗАПУСТИТИ"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </Grid>
+    
+</fuic:Page> 

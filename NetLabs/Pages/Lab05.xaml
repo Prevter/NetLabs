@@ -1,0 +1,84 @@
+﻿<fuic:Page x:Class="NetLabs.Pages.Lab05"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:NetLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           xmlns:lab="clr-namespace:NetLabs.Labs.Lab05"
+           mc:Ignorable="d" Title="Лабораторна 5"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab05ViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <lab:PentagonShape Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Stroke="{DynamicResource OnSurface}" StrokeThickness="3" Width="{Binding RadiusValue}"/>
+
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Радіус: " VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <fuic:NumericTextBox Text="{Binding Radius, UpdateSourceTrigger=PropertyChanged}" IsDecimal="True" Grid.Column="1"/>
+            </Grid>
+
+            <Separator Margin="0,10"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Button Command="{Binding SerializeXmlCommand}" Style="{DynamicResource SecondaryOutlinedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="Xml" Width="22"/>
+                        <TextBlock Text="СЕРІАЛІЗУВАТИ (XML)" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="4,0,0,0" Command="{Binding DeserializeXmlCommand}" Style="{DynamicResource ErrorOutlinedButton}" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="CodeBlockXml" Width="22"/>
+                        <TextBlock Text="ДЕСЕРІАЛІЗУВАТИ (XML)" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+
+
+                <Button Margin="0,4,0,0" Command="{Binding SerializeBinCommand}" Style="{DynamicResource WarningOutlinedButton}" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="DatabaseImport" Width="22"/>
+                        <TextBlock Text="СЕРІАЛІЗУВАТИ (BIN)" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="4,4,0,0" Command="{Binding DeserializeBinCommand}" Style="{DynamicResource PrimaryOutlinedButton}" Grid.Row="1" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="DatabaseExport" Width="22"/>
+                        <TextBlock Text="ДЕСЕРІАЛІЗУВАТИ (BIN)" Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+
+            <Button Margin="0,4,0,0" Command="{Binding ShowReflectionCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="ViewList" Width="22"/>
+                    <TextBlock Text="ПОКАЗАТИ МЕТОДИ" Margin="4,0,0,0"/>
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</fuic:Page>

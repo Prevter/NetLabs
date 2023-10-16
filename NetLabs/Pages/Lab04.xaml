@@ -1,0 +1,71 @@
+﻿<fuic:Page x:Class="NetLabs.Pages.Lab04"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:NetLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           xmlns:controls="clr-namespace:WpfMath.Controls;assembly=WpfMath"
+           mc:Ignorable="d" Title="Лабораторна 4"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab04ViewModel />
+    </Page.DataContext>
+    <Page.InputBindings>
+        <KeyBinding Key="O" Command="{Binding KeyDownCommand}"/>
+        <KeyBinding Key="J" Command="{Binding KeyDownCommand}"/>
+    </Page.InputBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="a:" Margin="4,0" VerticalAlignment="Center"/>
+        <fuic:NumericTextBox Grid.Row="0" Grid.Column="1" Margin="8,3,4,3"
+                        Text="{Binding AValue, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Text="b:" Grid.Row="1" Margin="4,0" VerticalAlignment="Center"/>
+        <fuic:NumericTextBox Grid.Row="1" Grid.Column="1" Margin="8,3,4,3"
+                        Text="{Binding BValue, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Функції"/>
+            <TextBlock Text="Похибка" Grid.Column="1"/>
+
+            <controls:FormulaControl Formula="{Binding FirstEquation, NotifyOnValidationError=True}"
+                                 Grid.Row="1" Margin="6,4" Foreground="{DynamicResource OnBackground}"/>
+            <TextBlock Text="{Binding FirstError, StringFormat=0.00000000}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+
+            <controls:FormulaControl Formula="{Binding SecondEquation, NotifyOnValidationError=True}" Grid.Row="2" 
+                                 Margin="6,4" Foreground="{DynamicResource OnBackground}"/>
+            <TextBlock Text="{Binding SecondError, StringFormat=0.00000000}" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"/>
+
+            <controls:FormulaControl Formula="{Binding ThirdEquation, NotifyOnValidationError=True}" Grid.Row="3" 
+                                 Margin="6,4" Foreground="{DynamicResource OnBackground}"/>
+            <TextBlock Text="{Binding ThirdError, StringFormat=0.00000000}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1"/>
+
+            <controls:FormulaControl Formula="{Binding FourthEquation, NotifyOnValidationError=True}" Grid.Row="4" 
+                                 Margin="6,4" Foreground="{DynamicResource OnBackground}"/>
+            <TextBlock Text="{Binding FourthError, StringFormat=0.00000000}" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</fuic:Page>

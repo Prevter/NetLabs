@@ -1,0 +1,54 @@
+﻿<fuic:Page x:Class="NetLabs.Pages.Lab03"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:NetLabs.MVVM"
+           xmlns:lab3="clr-namespace:NetLabs.Labs.Lab03"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="Лабораторна 3"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab03ViewModel />
+    </Page.DataContext>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding AddFigureCommand }">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="Plus" Width="22"/>
+                    <TextBlock Text="Додати" Margin="4,0,0,0"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding ClearCommand}" Grid.Column="1" Margin="4,0,0,0">
+                <fuic:Icon Kind="TrashCan" Width="22"/>
+            </Button>
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding Figures}" Margin="10">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <lab3:HourGlassComponent Width="{Binding Width}" Height="{Binding Height}" Stroke="{DynamicResource OnSurface}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+    </StackPanel>
+</fuic:Page>

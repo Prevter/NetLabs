@@ -1,0 +1,126 @@
+﻿<fuic:Page x:Class="NetLabs.Pages.Lab01"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:NetLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="Лабораторна 1"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab01ViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="Фігура:" />
+            <RadioButton GroupName="ChessFigure" IsChecked="True"
+                         Command="{Binding ChangeFigureCommand}" CommandParameter="{x:Static mvvm:EChessFigure.Knight}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="ChessKnight" />
+                    <TextBlock Text="Кінь" VerticalAlignment="Center"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton GroupName="ChessFigure"
+                         Command="{Binding ChangeFigureCommand}" CommandParameter="{x:Static mvvm:EChessFigure.Bishop}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="ChessBishop" />
+                    <TextBlock Text="Слон" VerticalAlignment="Center"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton GroupName="ChessFigure"
+                         Command="{Binding ChangeFigureCommand}" CommandParameter="{x:Static mvvm:EChessFigure.Rook}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="ChessRook" />
+                    <TextBlock Text="Тура" VerticalAlignment="Center"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton GroupName="ChessFigure"
+                         Command="{Binding ChangeFigureCommand}" CommandParameter="{x:Static mvvm:EChessFigure.Queen}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="ChessQueen" />
+                    <TextBlock Text="Ферзь" VerticalAlignment="Center" />
+                </StackPanel>
+            </RadioButton>
+
+            <Rectangle Stroke="{DynamicResource Outline}" StrokeThickness="1" HorizontalAlignment="Stretch"
+                       Margin="0,4" />
+
+            <TextBlock Text="Перемістити:" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding SetPositionValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SetPositionCommand}" />
+                        <KeyBinding Key="Return" Command="{Binding SetPositionCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Padding="0" Grid.Column="1" Margin="2,0,0,0" Command="{Binding SetPositionCommand}" Width="28">
+                    <Button.Content>
+                        <fuic:Icon Kind="ArrowRightThin" />
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <Rectangle Stroke="{DynamicResource Outline}" StrokeThickness="1" HorizontalAlignment="Stretch"
+                       Margin="0,4" />
+
+            <TextBlock Text="Походити:" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding MovePositionValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding MovePositionCommand}" />
+                        <KeyBinding Key="Return" Command="{Binding MovePositionCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Padding="0" Grid.Column="1" Margin="2,0,0,0" Command="{Binding MovePositionCommand}" Width="28">
+                    <Button.Content>
+                        <fuic:Icon Kind="ArrowRightThin" />
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+        </StackPanel>
+
+        <Viewbox Grid.Column="1" Stretch="Uniform">
+            <Grid x:Name="chessBoard">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+
+                <fuic:Icon Kind="{Binding FigureKind}" Foreground="Black"
+                           Grid.Row="{Binding FigureRow}" Grid.Column="{Binding FigureColumn}" />
+            </Grid>
+        </Viewbox>
+    </Grid>
+</fuic:Page>

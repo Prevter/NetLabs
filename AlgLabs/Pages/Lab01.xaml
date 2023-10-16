@@ -1,0 +1,172 @@
+﻿<fuic:Page x:Class="AlgLabs.Pages.Lab01"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+           xmlns:mvvm="clr-namespace:AlgLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="1 • Швидкість сортування"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab01ViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <Style TargetType="Border" x:Key="TableCell">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Outline}"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="0,0,8,0">
+            <TextBlock Text="Тип сортування:"/>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Бульбашка" Margin="0,0,8,0" GroupName="SortType" IsChecked="True"
+                         Command="{Binding ChangeSortTypeCommand}" CommandParameter="{x:Static mvvm:SortType.Bubble}"/>
+                <RadioButton Content="Вибірка" Margin="0,0,8,0" GroupName="SortType"
+                         Command="{Binding ChangeSortTypeCommand}" CommandParameter="{x:Static mvvm:SortType.Selecting}"/>
+                <RadioButton Content="Вставка" GroupName="SortType"
+                         Command="{Binding ChangeSortTypeCommand}" CommandParameter="{x:Static mvvm:SortType.Insertion}"/>
+            </StackPanel>
+
+            <CheckBox Content="Використовувати Double" Foreground="{DynamicResource OnSurface}" IsChecked="{Binding UseDouble}"/>
+
+            <TextBlock Text="Розмір масиву:"/>
+            <fuic:NumericTextBox Text="{Binding ArraySize}"/>
+
+            <Button Margin="0,8,0,0" Command="{Binding RunSortCommand}"
+                    IsEnabled="{Binding IsWorking, Converter={StaticResource InverseBooleanConverter}}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="Run" Width="18" Margin="0,0,4,0"/>
+                        <TextBlock Text="ЗАПУСТИТИ"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" >
+            <TextBlock>
+                <Run Text="Останнє сортування:"/>
+                <Run Text="{Binding TimeTaken, StringFormat=0.0000}"/>
+                <Run Text="мс."/>
+            </TextBlock>
+
+            <TextBlock Text="Середні значення:"/>
+            <Border BorderBrush="{DynamicResource Outline}" BorderThickness="0.5">
+                <Grid Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="0" Grid.Column="0">
+                        <TextBlock Text="Елементів" TextAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="0" Grid.Column="1">
+                        <TextBlock Text="Бульбашка" TextAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="0" Grid.Column="2">
+                        <TextBlock Text="Вибірка" TextAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="0" Grid.Column="3">
+                        <TextBlock Text="Вставка" TextAlignment="Center"/>
+                    </Border>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="0">
+                        <TextBlock Text="1000" TextAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="0" >
+                        <TextBlock Text="10000" TextAlignment="Center"/>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="0" >
+                        <TextBlock Text="100000" TextAlignment="Center"/>
+                    </Border>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="1">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Bubble1000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Bubble1000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="1">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Bubble10000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Bubble10000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="1">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Bubble100000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Bubble100000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="2">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Selecting1000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Selecting1000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="2">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Selecting10000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Selecting10000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="2">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Selecting100000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Selecting100000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="1" Grid.Column="3">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Insertion1000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Insertion1000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="2" Grid.Column="3">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Insertion10000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Insertion10000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                    <Border Style="{DynamicResource TableCell}" Grid.Row="3" Grid.Column="3">
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding AverageTimes[Insertion100000Int], StringFormat=0.0000}"/>
+                            <Run Text="/"/>
+                            <Run Text="{Binding AverageTimes[Insertion100000Double], StringFormat=0.0000}"/>
+                        </TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="* int / double" FontSize="12"/>
+        </StackPanel>
+    </Grid>
+</fuic:Page>
