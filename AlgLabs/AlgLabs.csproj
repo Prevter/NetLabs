@@ -28,6 +28,10 @@
     <Compile Update="Pages\About.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\Lab03 - Copy.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Lab03.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\Settings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

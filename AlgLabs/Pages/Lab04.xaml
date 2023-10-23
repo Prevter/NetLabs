@@ -1,0 +1,195 @@
+﻿<fuic:Page x:Class="AlgLabs.Pages.Lab04" x:Name="page"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:AlgLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="4 • Зв'язні списки">
+    <Page.DataContext>
+        <mvvm:Lab04ViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Міста" FontSize="18" FontWeight="Bold" Margin="0,0,0,4"/>
+            <Button Style="{DynamicResource ErrorTextButton}" Command="{Binding ClearCommand}" Grid.Column="1" Padding="8,4">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="DeleteSweep" Margin="0,0,4,0" Width="18"/>
+                    <TextBlock Text="Очистити" VerticalAlignment="Center" FontSize="12"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Cities}" AlternationCount="100">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{DynamicResource ErrorTextButton}" Padding="6" 
+                                    Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}" Margin="0,0,4,0">
+                                <fuic:Icon Kind="Delete" Width="16"/>
+                            </Button>
+                            <TextBlock FontSize="16" Text="{Binding 
+                                    Path=(ItemsControl.AlternationIndex), FallbackValue=FAIL,
+                                    RelativeSource={RelativeSource Mode=TemplatedParent},
+                                    StringFormat={}{0}.}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock VerticalAlignment="Center">
+                                <Run Text="{Binding Name}" FontWeight="Bold" FontSize="18"/>
+                                <Run Text="(" FontStyle="Italic"/><Run Text="{Binding Year}" FontStyle="Italic"/><Run Text=" р.):" FontStyle="Italic"/>
+                                <Run Text="{Binding Population, StringFormat={}{0:n0}, ConverterCulture=en-US}" /><Run Text=" людей"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.RowSpan="2">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Назва:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+
+                    <TextBlock Text="Рік:" VerticalAlignment="Center" Margin="0,4,8,0" Grid.Row="1"/>
+                    <fuic:NumericTextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Margin="0,4,0,0"/>
+
+                    <TextBlock Text="Населення:" VerticalAlignment="Center" Margin="0,4,8,0" Grid.Row="2"/>
+                    <fuic:NumericTextBox Text="{Binding Population, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Margin="0,4,0,0"/>
+                </Grid>
+
+                <StackPanel Margin="0,6" Orientation="Horizontal">
+                    <fuic:Icon Kind="Add" Margin="0,0,4,0"/>
+                    <TextBlock Text="Додати" FontSize="18"/>
+                </StackPanel>
+            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Button Style="{DynamicResource SuccessOutlinedButton}" Command="{Binding AddFirstCommand}">
+                        Додати на початок
+                    </Button>
+
+                    <Button Style="{DynamicResource PrimaryOutlinedButton}" Command="{Binding AddLastCommand}" Grid.Column="1">
+                        Додати в кінець
+                    </Button>
+
+                    <Button Style="{DynamicResource ErrorOutlinedButton}" Command="{Binding AddAtCommand}" Grid.Row="1">
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Додати за індексом</TextBlock>
+                                <TextBlock>Вставити елемент перед вказаним індексом</TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        Додати за індексом
+                    </Button>
+
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="8,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Індекс:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <fuic:NumericTextBox Text="{Binding InsertIndex, UpdateSourceTrigger=PropertyChanged}" MinWidth="50" Grid.Column="1"/>
+                    </Grid>
+
+                    <Button Style="{DynamicResource WarningOutlinedButton}" Command="{Binding AddSortedCommand}" Grid.Row="2">
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Додати відсортовано</TextBlock>
+                                <TextBlock>Вставити елемент в сортований список за роком заснування</TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        Додати відсортовано
+                    </Button>
+
+                    <Button Style="{DynamicResource SecondaryOutlinedButton}" Command="{Binding InsertManyCommand}" Grid.Column="1" Grid.Row="2">
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Вставити за умовою</TextBlock>
+                                <TextBlock>Перед кожним, у якого вік від 50 до 100 років включно</TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        Вставити за умовою
+                    </Button>
+
+                    <Button Style="{DynamicResource InfoOutlinedButton}" Command="{Binding ReplaceCommand}" Grid.ColumnSpan="2" Grid.Row="3">
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Заміна за умовою</TextBlock>
+                                <TextBlock>Замінити всі елементи, населення яких менше від населення нового</TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        Заміна за умовою
+                    </Button>
+                </Grid>
+
+                <StackPanel Margin="0,6" Orientation="Horizontal">
+                    <fuic:Icon Kind="Sort" Margin="0,0,4,0"/>
+                    <TextBlock Text="Сортувати" FontSize="18"/>
+                </StackPanel>
+
+                <CheckBox Content="За зростанням" IsChecked="{Binding SortAscending}"/>
+
+                <Button Style="{DynamicResource PrimaryOutlinedButton}" Margin="0,4,0,0" Command="{Binding SortCommand}" CommandParameter="Year">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="Calendar" Margin="0,0,4,0"/>
+                        <TextBlock Text="За роком заснування" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Style="{DynamicResource SecondaryOutlinedButton}" Margin="0,4,0,0" Command="{Binding SortCommand}" CommandParameter="Name">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="City" Margin="0,0,4,0"/>
+                        <TextBlock Text="За назвою міста" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{DynamicResource WarningOutlinedButton}" Margin="0,4,0,0" Command="{Binding SortCommand}" CommandParameter="Population">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="People" Margin="0,0,4,0"/>
+                        <TextBlock Text="За населенням" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</fuic:Page>
