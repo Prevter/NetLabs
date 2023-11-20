@@ -22,12 +22,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <fuic:Icon Kind="Paintbrush" Margin="0,0,4,0" Width="18" />
-            <TextBlock Text="Тема додатку:" Margin="0,0,4,0" />
+            <TextBlock Text="Тема програми:" Margin="0,0,4,0" />
         </StackPanel>
 
         <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Themes}"
-                  SelectedIndex="{Binding SelectedTheme}" Margin="0,0,0,4" />
+                  SelectedIndex="{Binding SelectedTheme}" />
     </Grid>
 </fuic:Page>

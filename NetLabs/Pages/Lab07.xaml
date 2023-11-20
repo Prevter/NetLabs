@@ -1,0 +1,30 @@
+﻿<fuic:Page x:Class="NetLabs.Pages.Lab07"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:NetLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="Лабораторна 7"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab07ViewModel />
+    </Page.DataContext>
+    <StackPanel>
+        <TextBlock Text="ASP.NET Сервер" FontSize="22" Margin="0,0,0,8"/>
+        <Button Command="{Binding ToggleServerCommand}" Style="{Binding ButtonStyle}">
+            <StackPanel Orientation="Horizontal">
+                <fuic:Icon Kind="Power" Width="22"/>
+                <TextBlock Text="{Binding ButtonLabel}"/>
+            </StackPanel>
+        </Button>
+        <TextBlock>
+            <Run Text="Сервер працює на порту 58585"/>
+            <LineBreak/>
+            <Run Text="Відкрити в браузері: "/>
+            <Hyperlink Command="{Binding OpenBrowserCommand}" Style="{Binding HyperlinkStyle}">
+                <TextBlock Text="https://asp.prevter.tk/"/>
+            </Hyperlink>
+        </TextBlock>
+    </StackPanel>
+</fuic:Page>

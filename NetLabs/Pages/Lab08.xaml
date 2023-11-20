@@ -1,0 +1,172 @@
+﻿<fuic:Page x:Class="NetLabs.Pages.Lab08"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:NetLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="Лабораторна 8"
+           d:DesignHeight="450" d:DesignWidth="800">
+    <Page.DataContext>
+        <mvvm:Lab08ViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,32,0,8" Visibility="{Binding LoginVisibility}" HorizontalAlignment="Center" MinWidth="250">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Логін:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Username}" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Пароль:" Grid.Row="2" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Password}" Grid.Row="2" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center"/>
+            </Grid>
+
+            <Button Style="{DynamicResource PrimaryTextButton}" Command="{Binding LoginCommand}" Margin="0,4,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="Login" Width="22"/>
+                    <TextBlock Text="Вхід" Margin="8,0,0,0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Margin="0,0,0,8" Visibility="{Binding MenuVisibility}" Orientation="Horizontal">
+            <Button Style="{DynamicResource PrimaryOutlinedButton}" Command="{Binding CreateCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="Add" Width="22"/>
+                    <TextBlock Text="Додати" Margin="8,0,0,0"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{DynamicResource SecondaryOutlinedButton}" Margin="4,0" Command="{Binding RefreshCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="Refresh" Width="22"/>
+                    <TextBlock Text="Оновити" Margin="8,0,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{DynamicResource ErrorOutlinedButton}" Command="{Binding LogoutCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="Logout" Width="22"/>
+                    <TextBlock Text="Вийти" Margin="8,0,0,0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <fuic:CircularProgress Visibility="{Binding Loading, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.ColumnSpan="2">
+            <ItemsControl ItemsSource="{Binding Path=Sportsmen}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{DynamicResource Outline}" BorderThickness="2" Padding="4" CornerRadius="4" Margin="0,0,0,4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{DynamicResource ErrorTextButton}" Padding="4" MaxHeight="32" Margin="0,0,4,0" CommandParameter="{Binding}"
+                                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                        <fuic:Icon Kind="Delete"/>
+                                    </Button>
+                                    <Button Style="{DynamicResource InfoTextButton}" Padding="4" MaxHeight="32" Margin="0,0,8,0" CommandParameter="{Binding}"
+                                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                        <fuic:Icon Kind="Edit"/>
+                                    </Button>
+                                </StackPanel>
+
+                                <TextBlock TextWrapping="Wrap" Grid.Column="1">
+                                    <Run Text="[" FontSize="16"/><Run Text="{Binding Id}" FontSize="16"/><Run Text="] " FontSize="16"/>
+                                    <Run Text="{Binding FirstName}" FontSize="18"/>
+                                    <Run Text="{Binding MiddleName}" FontSize="18"/>
+                                    <Run Text="{Binding LastName}" FontSize="18"/>
+                                    <Run Text=" - "/>
+                                    <Run Text="{Binding SportName}" FontSize="16"/> 
+                                    <LineBreak/>
+                                    <Run Text="Досягнення:" FontWeight="Bold"/>
+                                    <Run Text="{Binding Achievements}"/>
+                                    <LineBreak/>
+                                    <Run Text="Нагороди:" FontWeight="Bold"/>
+                                    <Run Text="{Binding Prizes}"/>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        
+        <!-- Modal -->
+        <Grid Grid.RowSpan="2" Visibility="{Binding ModalVisibility}" Margin="-16">
+            <Rectangle Fill="#80000000" RadiusX="8" RadiusY="8"/>
+            <Border Background="{DynamicResource Background}" CornerRadius="4" Padding="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="64,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding ModalTitle}" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+                    
+                    <TextBlock Text="Ім'я:" Grid.Row="1" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBox Text="{Binding EditedFirstName}" Grid.Row="1" Grid.Column="1" Margin="8,4,0,0"/>
+                    <TextBlock Text="По батькові:" Grid.Row="2" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBox Text="{Binding EditedMiddleName}" Grid.Row="2" Grid.Column="1" Margin="8,4,0,0"/>
+                    <TextBlock Text="Прізвище:" Grid.Row="3" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBox Text="{Binding EditedLastName}" Grid.Row="3" Grid.Column="1" Margin="8,4,0,0"/>
+                    <TextBlock Text="Рік народження:" Grid.Row="4" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <fuic:NumericTextBox Text="{Binding EditedYear}" Grid.Row="4" Grid.Column="1" Margin="8,4,0,0"/>
+                    <CheckBox Content="Чоловічої статі?" IsChecked="{Binding EditedIsMale}" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,4,0,0"/>
+                    <TextBlock Text="Спорт:" Grid.Row="6" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBox Text="{Binding EditedSportName}" Grid.Row="6" Grid.Column="1" Margin="8,4,0,0"/>
+                    <TextBlock Text="Досягнення:" Grid.Row="7" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBox Text="{Binding EditedAchievements}" Grid.Row="7" Grid.Column="1" Margin="8,4,0,0"/>
+                    <TextBlock Text="Нагороди:" Grid.Row="8" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBox Text="{Binding EditedPrizes}" Grid.Row="8" Grid.Column="1" Margin="8,4,0,0"/>
+
+                    <StackPanel Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                        <Button Style="{DynamicResource SuccessTextButton}" Command="{Binding CommitEditCommand}" Margin="0,0,2,0">
+                            <StackPanel Orientation="Horizontal">
+                                <fuic:Icon Kind="Floppy" Width="22"/>
+                                <TextBlock Text="Зберегти" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{DynamicResource ErrorTextButton}" Command="{Binding CancelCommand}" Margin="2,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <fuic:Icon Kind="Cancel" Width="22"/>
+                                <TextBlock Text="Скасувати" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</fuic:Page>

@@ -1,4 +1,5 @@
-﻿using FloxelLib.Common;
+﻿using FloxelLib;
+using FloxelLib.Common;
 using FloxelLib.MVVM;
 using Microsoft.Win32;
 using NetLabs.Labs.Lab05;

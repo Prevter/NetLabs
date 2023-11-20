@@ -1,0 +1,71 @@
+﻿@page
+@using Microsoft.AspNetCore.Http;
+@model Task2Model
+@{
+    ViewData["Title"] = "Завдання 2";
+    HttpContext.Session.SetInt32("attempts", 0);
+}
+
+<div class="container p-3 mx-auto">
+
+    @{
+        var maxAttempts = 5;
+
+        if (Model.Attempts >= maxAttempts)
+        {
+            <div class="alert alert-danger mb-2" role="alert">Ви використали забагато спроб! Спробуйте пізніше.</div>
+        }
+        else
+        {
+            if (Request.Method == "POST")
+			{
+                string firstname = Request.Form["firstname"].ToString();
+                string lastname = Request.Form["lastname"].ToString();
+                string login = Request.Form["login"].ToString();
+                string password = Request.Form["password"].ToString();
+
+				if (string.IsNullOrEmpty(firstname) || string.IsNullOrEmpty(lastname) || string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+				{
+                    <div class="alert alert-danger mb-2" role="alert">Заповніть всі поля!</div>
+                }
+                else
+                {
+                    if (login == Task2Model.CorrectLogin && password == Task2Model.CorrectPassword)
+                    {
+                        <div class="alert alert-success mb-2" role="alert">Ви успішно авторизувалися!</div>
+                        System.IO.File.WriteAllText("session.txt", $"name: {firstname}\nlast name: {lastname}\nlogin: {login}\npassword: {password}");
+                    }
+                    else
+                    {
+                        Model.Attempts++;
+                        <div class="alert alert-danger mb-2" role="alert">
+                            Неправильний логін або пароль! Залишилось спроб: 
+                            @((maxAttempts - Model.Attempts).ToString())
+                        </div>
+                    }
+				}
+			}
+
+            <form class="form" method="post">
+                <div class="form-group">
+                    <label for="input">Прізвище:</label>
+                    <input type="text" class="form-control" id="input" name="lastname" placeholder="Прізвище">
+                </div>
+                <div class="form-group">
+                    <label for="input">Ім'я:</label>
+                    <input type="text" class="form-control" id="input" name="firstname" placeholder="Ім'я">
+                </div>
+                <div class="form-group">
+                    <label for="input">Логін:</label>
+                    <input type="text" class="form-control" id="input" name="login" placeholder="Логін">
+                </div>
+                <div class="form-group">
+                    <label for="input">Пароль</label>
+                    <input type="password" class="form-control" id="input" name="password" placeholder="Пароль">
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-1">Відправити</button>
+            </form>
+        }
+    }
+</div>

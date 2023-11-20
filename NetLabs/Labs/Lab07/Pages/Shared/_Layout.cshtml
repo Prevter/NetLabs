@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Лабораторна робота 7</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/colors.css" />
+    <link rel="stylesheet" href="/css/material.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <style>
+        :root {
+            --bs-body-bg: #fff;
+            --bs-body-color: #000;
+            --elevation-1: #f5f5f5;
+            --elevation-2: #eee;
+            --elevation-3: #e0e0e0;
+            --elevation-4: #ddd;
+            --elevation-5: #ccc;
+            --elevation-6: #bbb;
+            --elevation-7: #aaa;
+            --elevation-8: #999;
+            --info: #2196f3;
+            --info-hover: #329ef4;
+            --info-fg: #fff;
+            --success: #4caf50;
+            --success-hover: #5ab55e;
+            --success-fg: #fff;
+            --primary: #1867C0;
+            --primary-hover: #0d47a1;
+            --primary-fg: #fff;
+        }
+
+        [data-bs-theme='dark'] {
+            --bs-body-bg: #121212;
+            --bs-body-color: #fff;
+            --elevation-1: #1e1e1e;
+            --elevation-2: #222222;
+            --elevation-3: #242424;
+            --elevation-4: #262626;
+            --elevation-5: #282828;
+            --elevation-6: #2c2c2c;
+            --elevation-7: #2e2e2e;
+            --elevation-8: #3e3e3e;
+            --info: #2196f3;
+            --info-hover: #329ef4;
+            --info-fg: #fff;
+            --success: #4caf50;
+            --success-hover: #5ab55e;
+            --success-fg: #fff;
+            --primary: #2196f3;
+            --primary-hover: #329ef4;
+            --primary-fg: #fff;
+        }
+    </style>
+
+    <header>
+        <nav class="navbar navbar-expand-lg elevation-4">
+            <div class="d-lg-none w-100">
+                <div class="d-flex justify-content-between mobile-nav">
+                    <div class="d-flex">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+                                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="/">
+                            <span class="ms-2 d-inline-block align-text-center">Лабораторна робота 7</span>
+                        </a>
+                    </div>
+                    <div class="ms-2">
+                        <a class="btn btn-circle" onclick="toggleDarkMode()" title="Dark mode toggle">
+                            <i class="fas fa-moon fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    <ul class="navbar-nav mx-4 my-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link ps-2" href="/task1">Завдання 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ps-2" href="/task2">Завдання 2</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-none d-lg-flex container-fluid">
+                <a class="navbar-brand" href="/">
+                    <span class="ms-2 d-inline-block align-text-center">Лабораторна робота 7</span>
+                </a>
+                <div class="ms-auto">
+                    <ul class="navbar-nav">
+                        <li class="nav-item me-1">
+                            <a class="nav-link px-2 btn" href="/task1">Завдання 1</a>
+                        </li>
+                        <li class="nav-item me-1">
+                            <a class="nav-link px-2 btn" href="/task2">Завдання 2</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ms-2 d-inline-block">
+                    <a class="btn btn-circle" onclick="toggleDarkMode()" title="Dark mode toggle">
+                        <i class="fas fa-moon fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="elevation-1">
+        @RenderBody()
+    </div>
+
+    <footer class="text-center py-3 elevation-2 bg-elevation-2">
+        &copy; 2023 Немеш Олександр
+    </footer>
+
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable justify-content-center" data-dismiss="modal">
+            <img src="" class="imagepreview img-fluid">
+        </div>
+    </div>
+
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="/js/ripple.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

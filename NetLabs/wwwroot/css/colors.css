@@ -1,0 +1,43 @@
+:root {
+    --bs-body-bg: #fff;
+    --bs-body-color: #000;
+    --elevation-1: #f5f5f5;
+    --elevation-2: #eee;
+    --elevation-3: #e0e0e0;
+    --elevation-4: #ddd;
+    --elevation-5: #ccc;
+    --elevation-6: #bbb;
+    --elevation-7: #aaa;
+    --elevation-8: #999;
+    --info: #2196f3;
+    --info-hover: #329ef4;
+    --info-fg: #fff;
+    --success: #4caf50;
+    --success-hover: #5ab55e;
+    --success-fg: #fff;
+    --primary: #1867C0;
+    --primary-hover: #0d47a1;
+    --primary-fg: #fff;
+}
+
+[data-bs-theme='dark'] {
+    --bs-body-bg: #121212;
+    --bs-body-color: #fff;
+    --elevation-1: #1e1e1e;
+    --elevation-2: #222222;
+    --elevation-3: #242424;
+    --elevation-4: #262626;
+    --elevation-5: #282828;
+    --elevation-6: #2c2c2c;
+    --elevation-7: #2e2e2e;
+    --elevation-8: #3e3e3e;
+    --info: #2196f3;
+    --info-hover: #329ef4;
+    --info-fg: #fff;
+    --success: #4caf50;
+    --success-hover: #5ab55e;
+    --success-fg: #fff;
+    --primary: #2196f3;
+    --primary-hover: #329ef4;
+    --primary-fg: #fff;
+}
