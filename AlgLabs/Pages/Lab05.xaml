@@ -1,0 +1,182 @@
+﻿<fuic:Page x:Class="AlgLabs.Pages.Lab05" x:Name="page"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mvvm="clr-namespace:AlgLabs.MVVM"
+           xmlns:fuic="clr-namespace:FloxelLib.Controls;assembly=Floxel"
+           mc:Ignorable="d" Title="5 • Бінарне дерево">
+    <Page.DataContext>
+        <mvvm:Lab05ViewModel />
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Міста" FontSize="18" FontWeight="Bold" Margin="0,0,0,4"/>
+            <Button Style="{DynamicResource ErrorTextButton}" Command="{Binding ClearCommand}" Grid.Column="1" Padding="8,4">
+                <StackPanel Orientation="Horizontal">
+                    <fuic:Icon Kind="DeleteSweep" Margin="0,0,4,0" Width="18"/>
+                    <TextBlock Text="Очистити" VerticalAlignment="Center" FontSize="12"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <TreeView ItemsSource="{Binding Cities}" Background="Transparent" BorderThickness="0">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="Focusable" Value="false" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}" >
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{DynamicResource ErrorTextButton}" Padding="6" IsEnabled="{Binding NoChildren}"
+                                Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType=TreeView}}"
+                                CommandParameter="{Binding Value}" Margin="0,0,4,0">
+                                <fuic:Icon Kind="Delete" Width="16"/>
+                            </Button>
+                            <TextBlock Text="ℹ️ " VerticalAlignment="Center" Foreground="{DynamicResource OnSurface}"
+                                       Visibility="{Binding IsHighlighted, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource OnSurface}">
+                                <Run Text="{Binding Value.Name}" FontWeight="Bold" FontSize="18"/>
+                                <Run Text="(" FontStyle="Italic"/><Run Text="{Binding Value.Year}" FontStyle="Italic"/><Run Text=" р.):" FontStyle="Italic"/>
+                                <Run Text="{Binding Value.Population, StringFormat={}{0:n0}, ConverterCulture=en-US}" /><Run Text=" людей"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </ScrollViewer>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.RowSpan="2">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Назва:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+
+                    <TextBlock Text="Рік:" VerticalAlignment="Center" Margin="0,4,8,0" Grid.Row="1"/>
+                    <fuic:NumericTextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Margin="0,4,0,0"/>
+
+                    <TextBlock Text="Населення:" VerticalAlignment="Center" Margin="0,4,8,0" Grid.Row="2"/>
+                    <fuic:NumericTextBox Text="{Binding Population, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Margin="0,4,0,0"/>
+                </Grid>
+
+                <Button Style="{DynamicResource SuccessOutlinedButton}" Command="{Binding AddFirstCommand}" Margin="0,4,0,0">
+                    Додати
+                </Button>
+
+                <StackPanel Margin="0,12,0,4" Orientation="Horizontal">
+                    <fuic:Icon Kind="Graph" Margin="0,0,4,0"/>
+                    <TextBlock Text="Статистика дерева" FontSize="18"/>
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Margin="0,4,0,0">
+                        <Run Text="Висота: "/>
+                        <Run Text="{Binding Height}"/>
+                    </TextBlock>
+
+                    <TextBlock Margin="0,4,0,0" Grid.Row="1">
+                        <Run Text="Кількість вузлів: "/>
+                        <Run Text="{Binding NodesCount}"/>
+                    </TextBlock>
+
+                    <TextBlock Margin="0,4,0,0" Grid.Row="2">
+                        <Run Text="Кількість листків: "/>
+                        <Run Text="{Binding LeafCount}"/>
+                    </TextBlock>
+
+                    <TextBlock Margin="0,4,0,0" Grid.Column="1">
+                        <Run Text="Всього населення: "/>
+                        <Run Text="{Binding TotalPopulation}"/>
+                    </TextBlock>
+
+                    <TextBlock Margin="0,4,0,0" Grid.Column="1" Grid.Row="1">
+                        <Run Text="З населенням > 100 т: "/>
+                        <Run Text="{Binding Greater100kCount}"/>
+                    </TextBlock>
+
+                    <CheckBox Content="Виділити" IsChecked="{Binding Highlight100k}" Grid.Column="1" Grid.Row="2"/>
+                </Grid>
+
+                
+
+                <StackPanel Margin="0,12,0,4" Orientation="Horizontal">
+                    <fuic:Icon Kind="Search" Margin="0,0,4,0"/>
+                    <TextBlock Text="Пошук" FontSize="18"/>
+                </StackPanel>
+
+                <CheckBox Content="Максимальний" IsChecked="{Binding SearchMax}"/>
+
+                <Button Style="{DynamicResource PrimaryOutlinedButton}" Margin="0,4,0,0" Command="{Binding FindMinMaxCommand}" CommandParameter="Year">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="Calendar" Margin="0,0,4,0"/>
+                        <TextBlock Text="За роком заснування" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{DynamicResource SecondaryOutlinedButton}" Margin="0,4,0,0" Command="{Binding FindMinMaxCommand}" CommandParameter="Name">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="City" Margin="0,0,4,0"/>
+                        <TextBlock Text="За назвою міста" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{DynamicResource WarningOutlinedButton}" Margin="0,4,0,0" Command="{Binding FindMinMaxCommand}" CommandParameter="Population">
+                    <StackPanel Orientation="Horizontal">
+                        <fuic:Icon Kind="People" Margin="0,0,4,0"/>
+                        <TextBlock Text="За населенням" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <TextBlock Text="Знайдене місто:" Margin="0,4,0,0"/>
+
+                <TextBlock Margin="0,4,0,0">
+                    <Run Text="{Binding FoundCity.Name}" FontWeight="Bold" FontSize="18"/>
+                    <Run Text="(" FontStyle="Italic"/><Run Text="{Binding FoundCity.Year}" FontStyle="Italic"/><Run Text=" р.):" FontStyle="Italic"/>
+                    <Run Text="{Binding FoundCity.Population, StringFormat={}{0:n0}, ConverterCulture=en-US}" /><Run Text=" людей"/>
+                </TextBlock>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</fuic:Page>
